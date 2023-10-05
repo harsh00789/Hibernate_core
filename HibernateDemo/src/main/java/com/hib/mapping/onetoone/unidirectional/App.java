@@ -1,0 +1,38 @@
+package com.hib.mapping.onetoone.unidirectional;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class App {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+Configuration cfg = new Configuration().configure("com/hib/mapping/onetoone/unidirectional/hibernate.cfg.xml");
+SessionFactory factory = cfg.buildSessionFactory();
+
+Question q = new Question();
+q.setQuestion_id(1);
+q.setQuestion("what is java ?");
+
+
+Answer a = new Answer();
+a.setAnswer_id(101);
+a.setAnswer("java is a programming language");
+q.setAnswer(a);
+
+Session session = factory.openSession();
+session.beginTransaction();
+
+session.save(q);
+session.save(a);
+
+session.getTransaction().commit();
+
+session.close();
+
+		
+		
+	}
+
+}
